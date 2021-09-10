@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, redirect, jsonify
 from json import dump
+from flask.helpers import url_for
+
+from werkzeug.utils import escape
 from Gameboard import Gameboard
 import db
 
@@ -10,8 +13,9 @@ import logging
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
-game = None
+game = Gameboard()
 
+#completed
 '''
 Implement '/' endpoint
 Method Type: GET
@@ -22,9 +26,10 @@ Initial Webpage where gameboard is initialized
 
 @app.route('/', methods=['GET'])
 def player1_connect():
-    pass
-
-
+    global game
+    game = Gameboard()
+    return render_template('player1_connect.html', status = 'Pick a Color.')
+    
 '''
 Helper function that sends to all boards don't modify
 '''
@@ -39,6 +44,7 @@ def updateAllBoards():
         return jsonify(move="")
 
 
+# completed
 '''
 Implement '/p1Color' endpoint
 Method Type: GET
@@ -49,7 +55,8 @@ Assign player1 their color
 
 @app.route('/p1Color', methods=['GET'])
 def player1_config():
-    pass
+    game.setP1(request.args.get('color'))
+    return render_template('player1_connect.html', status = game.player1)
 
 
 '''
@@ -64,7 +71,8 @@ Assign player2 their color
 
 @app.route('/p2Join', methods=['GET'])
 def p2Join():
-    pass
+    if game.getP1 != '':
+        return render_template('p2Join.html', status = game.player2)
 
 
 '''
@@ -81,7 +89,9 @@ Process Player 1's move
 
 @app.route('/move1', methods=['POST'])
 def p1_move():
-    pass
+    global game
+    move = request.json
+    return game.makeMove(move['column'])
 
 '''
 Same as '/move1' but instead proccess Player 2
@@ -90,7 +100,10 @@ Same as '/move1' but instead proccess Player 2
 
 @app.route('/move2', methods=['POST'])
 def p2_move():
-    pass
+    global game
+    move = request.json
+    return game.makeMove(move['column'])
+
 
 
 

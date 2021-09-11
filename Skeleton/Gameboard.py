@@ -26,6 +26,12 @@ class Gameboard():
 
     # makes a move
     def makeMove(self, colIn):
+        # check if both players have picked a color already
+        if self.player1 == '':
+            return jsonify(
+                move=self.board,
+                invalid=True, reason="player 1 must chose a color", winner="")
+
         col = int(list(colIn)[3]) - 1
         x = 5
         while x > -1:

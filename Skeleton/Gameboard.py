@@ -1,6 +1,7 @@
 import db
 from flask import Flask, render_template, request, redirect, jsonify
 
+
 class Gameboard():
     def __init__(self):
         self.player1 = ""
@@ -16,10 +17,10 @@ class Gameboard():
             self.player2 = 'yellow'
         else:
             self.player2 = 'red'
-    
+
     def getP1(self):
         return self.player1
-    
+
     def getP2(self):
         return self.player2
 
@@ -27,7 +28,7 @@ class Gameboard():
     def makeMove(self, colIn):
         col = int(list(colIn)[3]) - 1
         x = 5
-        while x > -1: 
+        while x > -1:
             if self.board[x][col] == 0:
                 toReturn = ''
                 if self.current_turn == 'p1':
@@ -41,7 +42,8 @@ class Gameboard():
                 return toReturn
             else:
                 x -= 1
-        return jsonify(move=self.board, invalid=True, reason="invalid move, column full", winner="")
+        return jsonify(
+            move=self.board, invalid=True, reason="column full", winner="")
 
     # checks if someone won the game
     def checkWinner(self):
@@ -53,33 +55,51 @@ class Gameboard():
         # check horizontal
         for c in range(7-3):
             for r in range(6):
-                if self.board[r][c] == colorCheck and self.board[r][c+1] == colorCheck and self.board[r][c+2] == colorCheck and self.board[r][c+3] == colorCheck:
-                    return jsonify(move=self.board, invalid=False, winner=self.current_turn)
+                if (self.board[r][c] == colorCheck
+                        and self.board[r][c+1] == colorCheck
+                        and self.board[r][c+2] == colorCheck
+                        and self.board[r][c+3] == colorCheck):
+                    return jsonify(
+                        move=self.board,
+                        invalid=False, winner=self.current_turn)
 
         # Check vertical locations for win
         for c in range(7):
             for r in range(6-3):
-                if self.board[r][c] == colorCheck and self.board[r+1][c] == colorCheck and self.board[r+2][c] == colorCheck and self.board[r+3][c] == colorCheck:
+                if (self.board[r][c] == colorCheck
+                        and self.board[r+1][c] == colorCheck
+                        and self.board[r+2][c] == colorCheck
+                        and self.board[r+3][c] == colorCheck):
                     print('winner')
-                    return jsonify(move=self.board, invalid=False, winner=self.current_turn)
+                    return jsonify(
+                        move=self.board,
+                        invalid=False, winner=self.current_turn)
 
         # Check positively sloped diaganols
         for c in range(7-3):
             for r in range(6-3):
-                if self.board[r][c] == colorCheck and self.board[r+1][c+1] == colorCheck and self.board[r+2][c+2] == colorCheck and self.board[r+3][c+3] == colorCheck:
-                    return jsonify(move=self.board, invalid=False, winner=self.current_turn)
+                if (self.board[r][c] == colorCheck
+                        and self.board[r+1][c+1] == colorCheck
+                        and self.board[r+2][c+2] == colorCheck
+                        and self.board[r+3][c+3] == colorCheck):
+                    return jsonify(
+                        move=self.board,
+                        invalid=False, winner=self.current_turn)
 
         # Check negatively sloped diaganols
         for c in range(7-3):
             for r in range(3, 6):
-                if self.board[r][c] == colorCheck and self.board[r-1][c+1] == colorCheck and self.board[r-2][c+2] == colorCheck and self.board[r-3][c+3] == colorCheck:
-                    return jsonify(move=self.board, invalid=False, winner=self.current_turn)
+                if (self.board[r][c] == colorCheck
+                        and self.board[r-1][c+1] == colorCheck
+                        and self.board[r-2][c+2] == colorCheck
+                        and self.board[r-3][c+3] == colorCheck):
+                    return jsonify(
+                        move=self.board,
+                        invalid=False, winner=self.current_turn)
+
         return jsonify(move=self.board, invalid=False, winner="")
 
 
 '''
 Add Helper functions as needed to handle moves and update board and turns
 '''
-
-
-    

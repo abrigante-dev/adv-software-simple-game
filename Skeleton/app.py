@@ -5,17 +5,16 @@ from flask.helpers import url_for
 from werkzeug.utils import escape
 from Gameboard import Gameboard
 import db
-
+import logging
 
 app = Flask(__name__)
 
-import logging
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
 game = Gameboard()
 
-#completed
+# completed
 '''
 Implement '/' endpoint
 Method Type: GET
@@ -28,8 +27,9 @@ Initial Webpage where gameboard is initialized
 def player1_connect():
     global game
     game = Gameboard()
-    return render_template('player1_connect.html', status = 'Pick a Color.')
-    
+    return render_template('player1_connect.html', status='Pick a Color.')
+
+
 '''
 Helper function that sends to all boards don't modify
 '''
@@ -56,7 +56,7 @@ Assign player1 their color
 @app.route('/p1Color', methods=['GET'])
 def player1_config():
     game.setP1(request.args.get('color'))
-    return render_template('player1_connect.html', status = game.player1)
+    return render_template('player1_connect.html', status=game.player1)
 
 
 '''
@@ -72,7 +72,7 @@ Assign player2 their color
 @app.route('/p2Join', methods=['GET'])
 def p2Join():
     if game.getP1 != '':
-        return render_template('p2Join.html', status = game.player2)
+        return render_template('p2Join.html', status=game.player2)
 
 
 '''
@@ -93,6 +93,7 @@ def p1_move():
     move = request.json
     return game.makeMove(move['column'])
 
+
 '''
 Same as '/move1' but instead proccess Player 2
 '''
@@ -103,8 +104,6 @@ def p2_move():
     global game
     move = request.json
     return game.makeMove(move['column'])
-
-
 
 
 if __name__ == '__main__':

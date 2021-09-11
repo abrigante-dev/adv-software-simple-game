@@ -74,10 +74,13 @@ class Gameboard():
 
     # checks if someone won the game
     def checkWinner(self):
+        next_turn = ''
         if self.current_turn == 'p1':
             colorCheck = self.player1
+            next_turn = 'p2'
         else:
             colorCheck = self.player2
+            next_turn = 'p1'
 
         # check horizontal
         for c in range(7-3):
@@ -86,6 +89,10 @@ class Gameboard():
                         and self.board[r][c+1] == colorCheck
                         and self.board[r][c+2] == colorCheck
                         and self.board[r][c+3] == colorCheck):
+                    self.game_result = self.current_turn
+                    db.add_move([next_turn, self.board, self.current_turn,
+                                self.player1, self.player2,
+                                self.getRemainingMoves()])
                     return jsonify(
                         move=self.board,
                         invalid=False, winner=self.current_turn)
@@ -97,6 +104,10 @@ class Gameboard():
                         and self.board[r+1][c] == colorCheck
                         and self.board[r+2][c] == colorCheck
                         and self.board[r+3][c] == colorCheck):
+                    self.game_result = self.current_turn
+                    db.add_move([next_turn, self.board, self.current_turn,
+                                self.player1, self.player2,
+                                self.getRemainingMoves()])
                     return jsonify(
                         move=self.board,
                         invalid=False, winner=self.current_turn)
@@ -108,6 +119,10 @@ class Gameboard():
                         and self.board[r+1][c+1] == colorCheck
                         and self.board[r+2][c+2] == colorCheck
                         and self.board[r+3][c+3] == colorCheck):
+                    self.game_result = self.current_turn
+                    db.add_move([next_turn, self.board, self.current_turn,
+                                self.player1, self.player2,
+                                self.getRemainingMoves()])
                     return jsonify(
                         move=self.board,
                         invalid=False, winner=self.current_turn)
@@ -119,14 +134,15 @@ class Gameboard():
                         and self.board[r-1][c+1] == colorCheck
                         and self.board[r-2][c+2] == colorCheck
                         and self.board[r-3][c+3] == colorCheck):
+                    self.game_result = self.current_turn
+                    db.add_move([next_turn, self.board, self.current_turn,
+                                self.player1, self.player2,
+                                self.getRemainingMoves()])
                     return jsonify(
                         move=self.board,
                         invalid=False, winner=self.current_turn)
-        next_turn = ''
-        if self.current_turn == 'p1':
-            next_turn = 'p2'
-        else:
-            next_turn = 'p1'
+
+        # returns when a player makes a valid move but doesn't win
         db.add_move([next_turn, self.board, "", self.player1, self.player2,
                     self.getRemainingMoves()])
         return jsonify(move=self.board, invalid=False, winner="")

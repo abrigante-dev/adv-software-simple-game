@@ -67,7 +67,6 @@ def getMove():
         result = cur.fetchall()
         if len(result) > 0:
             lastEntry = result[len(result)-1]
-            print(lastEntry)
             return lastEntry
         else:
             return None

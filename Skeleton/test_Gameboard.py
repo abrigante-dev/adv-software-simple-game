@@ -1,6 +1,7 @@
 import unittest
 from Gameboard import Gameboard
 from flask import Flask
+import db
 
 
 # test case class for the Gameboard
@@ -8,6 +9,8 @@ class Test_TestGameboard(unittest.TestCase):
 
     # ensure error is thrown for a full column
     def test_move(self):
+        db.clear()
+        db.init_db()
         game = Gameboard()
         app = Flask(__name__)
         with app.app_context():
@@ -18,6 +21,8 @@ class Test_TestGameboard(unittest.TestCase):
 
     # ensures that both players have an assigned color
     def test_color_chosen(self):
+        db.clear()
+        db.init_db()
         game = Gameboard()
         app = Flask(__name__)
         with app.app_context():
@@ -26,6 +31,8 @@ class Test_TestGameboard(unittest.TestCase):
 
     # ensure that a winner is called for a positive slope diagonal win
     def test_pos_diag(self):
+        db.clear()
+        db.init_db()
         game = Gameboard()
         game.setP1('red')
         app = Flask(__name__)
@@ -46,6 +53,8 @@ class Test_TestGameboard(unittest.TestCase):
 
     # ensure that a winner is called for a negative slope diagonal win
     def test_neg_diag(self):
+        db.clear()
+        db.init_db()
         game = Gameboard()
         game.setP1('red')
         app = Flask(__name__)
@@ -65,6 +74,8 @@ class Test_TestGameboard(unittest.TestCase):
 
     # ensure that a winner is called for a verticle win
     def test_vert(self):
+        db.clear()
+        db.init_db()
         game = Gameboard()
         game.setP1('red')
         app = Flask(__name__)
@@ -78,6 +89,8 @@ class Test_TestGameboard(unittest.TestCase):
 
     # ensure that a winner is called for a horizontal win
     def test_horizontal(self):
+        db.clear()
+        db.init_db()
         game = Gameboard()
         game.setP1('red')
         app = Flask(__name__)

@@ -13,7 +13,7 @@ log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
 game = Gameboard()
-# db.init_db()
+db.init_db()
 
 '''
 Implement '/' endpoint

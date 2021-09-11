@@ -76,7 +76,6 @@ class Gameboard():
                         and self.board[r+1][c] == colorCheck
                         and self.board[r+2][c] == colorCheck
                         and self.board[r+3][c] == colorCheck):
-                    print('winner')
                     return jsonify(
                         move=self.board,
                         invalid=False, winner=self.current_turn)

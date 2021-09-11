@@ -82,7 +82,7 @@ class Test_TestGameboard(unittest.TestCase):
         game.setP1('red')
         app = Flask(__name__)
         with app.app_context():
-            for x in range(1,4):
+            for x in range(1, 4):
                 game.makeMove('col{}'.format(x))
                 game.makeMove('col{}'.format(x))
             # winning move

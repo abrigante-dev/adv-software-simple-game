@@ -3,10 +3,8 @@
 ./Gameboard.py:2:1: F401 'flask.render_template' imported but unused
 ./Gameboard.py:2:1: F401 'flask.request' imported but unused
 ./Gameboard.py:2:1: F401 'flask.redirect' imported but unused
-./Gameboard.py:107:1: W293 blank line contains whitespace
 ./app.py:1:1: F401 'flask.redirect' imported but unused
 ./app.py:2:1: F401 'json.dump' imported but unused
 ./app.py:3:1: F401 'flask.helpers.url_for' imported but unused
 ./app.py:5:1: F401 'werkzeug.utils.escape' imported but unused
 ./app.py:7:1: F401 'db' imported but unused
-./app.py:96:1: E305 expected 2 blank lines after class or function definition, found 1

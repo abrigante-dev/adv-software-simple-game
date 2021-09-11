@@ -1,5 +1,6 @@
 import db
-from flask import Flask, render_template, request, redirect, jsonify
+from flask import jsonify
+import ast
 
 
 class Gameboard():
@@ -10,6 +11,17 @@ class Gameboard():
         self.game_result = ""
         self.current_turn = 'p1'
         self.remaining_moves = 42
+        self.checkSave()
+
+    # checks if there is a saved game and runs it if there is
+    def checkSave(self):
+        result = db.getMove()
+        if result is not None:
+            self.current_turn = result[0]
+            self.board = ast.literal_eval(result[1])
+            self.player1 = result[3]
+            self.player2 = result[4]
+            self.remaining_moves = result[5]
 
     def setP1(self, color):
         self.player1 = color
@@ -23,6 +35,15 @@ class Gameboard():
 
     def getP2(self):
         return self.player2
+
+    # returns number of remaining moves
+    def getRemainingMoves(self):
+        movesLeft = 0
+        for rows in self.board:
+            for elem in rows:
+                if elem == 0:
+                    movesLeft += 1
+        return movesLeft
 
     # makes a move
     def makeMove(self, colIn):
@@ -101,7 +122,13 @@ class Gameboard():
                     return jsonify(
                         move=self.board,
                         invalid=False, winner=self.current_turn)
-
+        next_turn = ''
+        if self.current_turn == 'p1':
+            next_turn = 'p2'
+        else:
+            next_turn = 'p1'
+        db.add_move([next_turn, self.board, "", self.player1, self.player2,
+                    self.getRemainingMoves()])
         return jsonify(move=self.board, invalid=False, winner="")
 
 

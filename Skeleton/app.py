@@ -13,8 +13,8 @@ log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
 game = Gameboard()
+# db.init_db()
 
-# completed
 '''
 Implement '/' endpoint
 Method Type: GET
@@ -44,7 +44,6 @@ def updateAllBoards():
         return jsonify(move="")
 
 
-# completed
 '''
 Implement '/p1Color' endpoint
 Method Type: GET

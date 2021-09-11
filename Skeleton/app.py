@@ -13,7 +13,6 @@ log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
 game = Gameboard()
-db.init_db()
 
 '''
 Implement '/' endpoint
@@ -25,6 +24,7 @@ Initial Webpage where gameboard is initialized
 
 @app.route('/', methods=['GET'])
 def player1_connect():
+    db.init_db()
     global game
     game = Gameboard()
     return render_template('player1_connect.html', status='Pick a Color.')

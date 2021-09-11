@@ -71,6 +71,7 @@ class Test_TestGameboard(unittest.TestCase):
             # winning move
             result = game.makeMove('col1').get_json()['winner']
             self.assertEqual(result, 'p2')
+        db.clear()
 
     # ensure that a winner is called for a verticle win
     def test_vert(self):
@@ -85,6 +86,7 @@ class Test_TestGameboard(unittest.TestCase):
                 game.makeMove('col2')
             # winning move
             result = game.makeMove('col1').get_json()['winner']
+            db.clear()
             self.assertEqual(result, 'p1')
 
     # ensure that a winner is called for a horizontal win
@@ -101,6 +103,7 @@ class Test_TestGameboard(unittest.TestCase):
             # winning move
             result = game.makeMove('col4').get_json()['winner']
             self.assertEqual(result, 'p1')
+        db.clear()
 
     # ensure the game starts and saves correctly
     def test_save(self):
@@ -116,8 +119,22 @@ class Test_TestGameboard(unittest.TestCase):
                 game = Gameboard()
             result = game.makeMove('col4').get_json()['winner']
             self.assertEqual(result, 'p1')
+        db.clear()
 
+    # ensure the game starts with the correct player's turn after load
+    def test_starting_player(self):
+        db.clear()
+        db.init_db()
+        game = Gameboard()
+        game.setP1('red')
+        app = Flask(__name__)
+        with app.app_context():
+            game.makeMove('col1')
+            game = Gameboard()
+            self.assertEqual(game.current_turn, 'p2')
+        db.clear()
 
 
 if __name__ == '__main__':
     unittest.main()
+    db.clear()

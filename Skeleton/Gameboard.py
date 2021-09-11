@@ -108,6 +108,7 @@ class Gameboard():
                     db.add_move([next_turn, self.board, self.current_turn,
                                 self.player1, self.player2,
                                 self.getRemainingMoves()])
+                    self.remaining_moves = 0
                     return jsonify(
                         move=self.board,
                         invalid=False, winner=self.current_turn)
@@ -145,6 +146,7 @@ class Gameboard():
         # returns when a player makes a valid move but doesn't win
         db.add_move([next_turn, self.board, "", self.player1, self.player2,
                     self.getRemainingMoves()])
+        self.remaining_moves -= 1
         return jsonify(move=self.board, invalid=False, winner="")
 
 

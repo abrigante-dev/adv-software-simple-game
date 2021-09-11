@@ -102,6 +102,22 @@ class Test_TestGameboard(unittest.TestCase):
             result = game.makeMove('col4').get_json()['winner']
             self.assertEqual(result, 'p1')
 
+    # ensure the game starts and saves correctly
+    def test_save(self):
+        db.clear()
+        db.init_db()
+        game = Gameboard()
+        game.setP1('red')
+        app = Flask(__name__)
+        with app.app_context():
+            for x in range(1, 4):
+                game.makeMove('col{}'.format(x))
+                game.makeMove('col{}'.format(x))
+                game = Gameboard()
+            result = game.makeMove('col4').get_json()['winner']
+            self.assertEqual(result, 'p1')
+
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -12,9 +12,7 @@ app = Flask(__name__)
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
-# initializes the game board when the program is ran
-db.clear()
-db.init_db()
+
 game = Gameboard()
 
 
@@ -94,12 +92,12 @@ Process Player 1's move
 def p1_move():
     global game
     move = request.json
-    if game.current_turn == 'p1':
-        return game.makeMove(move['column'])
-    elif game.game_result != '':
+    if game.game_result != '':
         return jsonify(
             move=game.board, invalid=False,
             winner=game.game_result)
+    elif game.current_turn == 'p1':
+        return game.makeMove(move['column'])
     else:
         return jsonify(
             move=game.board, invalid=True, reason="Not your turn",
@@ -115,12 +113,12 @@ Same as '/move1' but instead proccess Player 2
 def p2_move():
     global game
     move = request.json
-    if game.current_turn == 'p2':
-        return game.makeMove(move['column'])
-    elif game.game_result != '':
+    if game.game_result != '':
         return jsonify(
             move=game.board, invalid=False,
             winner=game.game_result)
+    elif game.current_turn == 'p2':
+        return game.makeMove(move['column'])
     else:
         return jsonify(
             move=game.board, invalid=True, reason="Not your turn",
@@ -128,4 +126,6 @@ def p2_move():
 
 
 if __name__ == '__main__':
+    db.clear()
+    db.init_db()
     app.run(debug=True, host='127.0.0.1')

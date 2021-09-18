@@ -46,7 +46,7 @@ class Test_TestGameboard(unittest.TestCase):
             game.makeMove('col3')
             game.makeMove('col4')
             game.makeMove('col4')
-            game.makeMove('col5')
+            game.makeMove('col6')
             # winning move
             result = game.makeMove('col4').get_json()['winner']
             self.assertEqual(result, 'p1')

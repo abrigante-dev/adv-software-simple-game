@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, redirect, jsonify
-from json import dump
-from flask.helpers import url_for
+# from json import dump
+# from flask.helpers import url_for
 
-from werkzeug.utils import escape
+# from werkzeug.utils import escape
 from Gameboard import Gameboard
 import db
 import logging
@@ -12,7 +12,11 @@ app = Flask(__name__)
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
+# initializes the game board when the program is ran
+db.clear()
+db.init_db()
 game = Gameboard()
+
 
 '''
 Implement '/' endpoint
@@ -90,7 +94,16 @@ Process Player 1's move
 def p1_move():
     global game
     move = request.json
-    return game.makeMove(move['column'])
+    if game.current_turn == 'p1':
+        return game.makeMove(move['column'])
+    elif game.game_result != '':
+        return jsonify(
+            move=game.board, invalid=False,
+            winner=game.game_result)
+    else:
+        return jsonify(
+            move=game.board, invalid=True, reason="Not your turn",
+            winner="")
 
 
 '''
@@ -102,7 +115,16 @@ Same as '/move1' but instead proccess Player 2
 def p2_move():
     global game
     move = request.json
-    return game.makeMove(move['column'])
+    if game.current_turn == 'p2':
+        return game.makeMove(move['column'])
+    elif game.game_result != '':
+        return jsonify(
+            move=game.board, invalid=False,
+            winner=game.game_result)
+    else:
+        return jsonify(
+            move=game.board, invalid=True, reason="Not your turn",
+            winner="")
 
 
 if __name__ == '__main__':

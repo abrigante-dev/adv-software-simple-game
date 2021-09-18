@@ -52,6 +52,11 @@ class Gameboard():
             return jsonify(
                 move=self.board,
                 invalid=True, reason="player 1 must chose a color", winner="")
+        # if someone has already won
+        elif self.remaining_moves == 0:
+            return jsonify(
+                move=self.board,
+                invalid=False, winner=self.game_result)
 
         col = int(list(colIn)[3]) - 1
         x = 5
@@ -93,6 +98,7 @@ class Gameboard():
                     db.add_move([next_turn, self.board, self.current_turn,
                                 self.player1, self.player2,
                                 self.getRemainingMoves()])
+                    self.remaining_moves = 0
                     return jsonify(
                         move=self.board,
                         invalid=False, winner=self.current_turn)
@@ -124,6 +130,7 @@ class Gameboard():
                     db.add_move([next_turn, self.board, self.current_turn,
                                 self.player1, self.player2,
                                 self.getRemainingMoves()])
+                    self.remaining_moves = 0
                     return jsonify(
                         move=self.board,
                         invalid=False, winner=self.current_turn)
@@ -139,6 +146,7 @@ class Gameboard():
                     db.add_move([next_turn, self.board, self.current_turn,
                                 self.player1, self.player2,
                                 self.getRemainingMoves()])
+                    self.remaining_moves = 0
                     return jsonify(
                         move=self.board,
                         invalid=False, winner=self.current_turn)

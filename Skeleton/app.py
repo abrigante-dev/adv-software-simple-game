@@ -91,11 +91,7 @@ Process Player 1's move
 def p1_move():
     global game
     move = request.json
-    if game.game_result != '':
-        return jsonify(
-            move=game.board, invalid=False,
-            winner=game.game_result)
-    elif game.current_turn == 'p1':
+    if game.current_turn == 'p1':
         return game.makeMove(move['column'])
     else:
         return jsonify(
@@ -112,11 +108,7 @@ Same as '/move1' but instead proccess Player 2
 def p2_move():
     global game
     move = request.json
-    if game.game_result != '':
-        return jsonify(
-            move=game.board, invalid=False,
-            winner=game.game_result)
-    elif game.current_turn == 'p2':
+    if game.current_turn == 'p2':
         return game.makeMove(move['column'])
     else:
         return jsonify(

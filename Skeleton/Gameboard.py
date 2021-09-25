@@ -53,10 +53,10 @@ class Gameboard():
                 move=self.board,
                 invalid=True, reason="player 1 must chose a color", winner="")
         # if someone has already won
-        elif self.remaining_moves == 0:
+        elif self.game_result != '':
             return jsonify(
-                move=self.board,
-                invalid=False, winner=self.game_result)
+                move=self.board, invalid=True, reason='',
+                winner=self.game_result)
 
         col = int(list(colIn)[3]) - 1
         x = 5
@@ -154,7 +154,15 @@ class Gameboard():
         # returns when a player makes a valid move but doesn't win
         db.add_move([next_turn, self.board, "", self.player1, self.player2,
                     self.getRemainingMoves()])
-        self.remaining_moves -= 1
+        # checks if there is a tie
+        if self.remaining_moves == 1:
+            self.game_result = 'None, Tie'
+            return jsonify(
+                        move=self.board,
+                        invalid=False, winner='None, Tie')
+        else:
+            self.remaining_moves -= 1
+        
         return jsonify(move=self.board, invalid=False, winner="")
 
 

@@ -145,9 +145,9 @@ class Test_TestGameboard(unittest.TestCase):
         with self.app.app_context():
             self.game.makeMove('col1')
             # ensure that the game is correctly tracking current move
-            self.assertEquals(self.game.current_turn, 'p2')
+            self.assertEqual(self.game.current_turn, 'p2')
             self.game.makeMove('col1')
-            self.assertEquals(self.game.current_turn, 'p1')
+            self.assertEqual(self.game.current_turn, 'p1')
         print('test_wrong_turn: Passed')
 
     # ensure the game properly handles a tie

@@ -162,7 +162,7 @@ class Gameboard():
                         invalid=False, winner='None, Tie')
         else:
             self.remaining_moves -= 1
-        
+
         return jsonify(move=self.board, invalid=False, winner="")
 
 

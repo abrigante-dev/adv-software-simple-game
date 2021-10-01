@@ -53,11 +53,20 @@ class Gameboard():
             return jsonify(
                 move=self.board,
                 invalid=True, reason="player 1 must chose a color", winner="")
-        # if someone has already won
+        # if someone has already won or a draw
         elif self.game_result != '':
-            return jsonify(
-                move=self.board, invalid=True, reason='',
-                winner=self.game_result)
+            # if a player won
+            if self.game_result == 'p1' or self.game_result == 'p2':
+                return jsonify(
+                    move=self.board, invalid=True,
+                    reason='{} already won'.format(self.game_result),
+                    winner=self.game_result)
+            # if there was already a draw
+            else:
+                return jsonify(
+                    move=self.board, invalid=True,
+                    reason='Game already a draw',
+                    winner=self.game_result)
         # truncates the column number from the request (col1 = 0 index)
         col = int(list(colIn)[3]) - 1
         x = 5

@@ -71,8 +71,11 @@ Assign player2 their color
 
 @app.route('/p2Join', methods=['GET'])
 def p2Join():
-    if game.getP1 != '':
+    # ensure p1 picks their color first
+    if len(str(game.player1)) > 0:
         return render_template('p2Join.html', status=game.player2)
+    else:
+        return render_template('p2Join.html', status="p1 hasnt chosen a color")
 
 
 '''

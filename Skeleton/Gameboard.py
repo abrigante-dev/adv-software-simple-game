@@ -160,6 +160,7 @@ class Gameboard():
         # checks if there is a tie
         if self.remaining_moves == 1:
             self.game_result = 'None, Tie'
+            self.remaining_moves = 0
             return jsonify(
                         move=self.board,
                         invalid=False, winner='None, Tie')

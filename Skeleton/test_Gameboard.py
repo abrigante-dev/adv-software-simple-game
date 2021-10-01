@@ -17,6 +17,7 @@ class Test_TestGameboard(unittest.TestCase):
     # clears the db after each test, really only matters on the final test
     def tearDown(self):
         db.clear()
+        # db.init_db()
 
     # ensure error is thrown for a full column
     def test_full_column(self):
@@ -169,4 +170,4 @@ class Test_TestGameboard(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-    db.clear()
+    # db.clear()

@@ -117,6 +117,7 @@ def p2_move():
 
 
 if __name__ == '__main__':
-    db.clear()
-    db.init_db()
+    # will initialize a DB if there currently isn't one or if the db is empty
+    if db.getMove() is None:
+        db.init_db()
     app.run(debug=True, host='127.0.0.1')

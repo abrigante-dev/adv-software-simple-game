@@ -40,9 +40,6 @@ def add_move(move):  # will take in a tuple
         conn = sqlite3.connect('sqlite_db')
         conn.execute(sql, data)
         conn.commit()
-        # cur = conn.cursor()
-        # cur.execute("SELECT * FROM GAME")
-        # print(cur.fetchall())
     except Error as e:
         print(e)
 

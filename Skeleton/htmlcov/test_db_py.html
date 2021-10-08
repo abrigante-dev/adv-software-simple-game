@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for test_db.py: 88%</title>
+    <title>Coverage for test_db.py: 89%</title>
     <link rel="icon" sizes="32x32" href="favicon_32.png">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="jquery.min.js"></script>
@@ -18,12 +18,12 @@
 <div id="header">
     <div class="content">
         <h1>Coverage for <b>test_db.py</b> :
-            <span class="pc_cov">88%</span>
+            <span class="pc_cov">89%</span>
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
         <h2 class="stats">
-            77 statements &nbsp;
-            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">68 run</button>
+            80 statements &nbsp;
+            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">71 run</button>
             <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">9 missing</button>
             <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
         </h2>
@@ -180,16 +180,22 @@
     <p id="t126" class="run"><span class="n"><a href="#t126">126</a></span><span class="t">                <span class="nam">conn</span><span class="op">.</span><span class="nam">close</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t127" class="run"><span class="n"><a href="#t127">127</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">assertEqual</span><span class="op">(</span><span class="nam">len</span><span class="op">(</span><span class="nam">result</span><span class="op">)</span><span class="op">,</span> <span class="num">0</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t128" class="pln"><span class="n"><a href="#t128">128</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t129" class="pln"><span class="n"><a href="#t129">129</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t130" class="run"><span class="n"><a href="#t130">130</a></span><span class="t"><span class="key">if</span> <span class="nam">__name__</span> <span class="op">==</span> <span class="str">'__main__'</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t131" class="mis show_mis"><span class="n"><a href="#t131">131</a></span><span class="t">    <span class="nam">unittest</span><span class="op">.</span><span class="nam">main</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t132" class="pln"><span class="n"><a href="#t132">132</a></span><span class="t">    <span class="com"># db.clear()</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t129" class="pln"><span class="n"><a href="#t129">129</a></span><span class="t">    <span class="com"># ensure an error is thrown if there is no table when addMove</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t130" class="pln"><span class="n"><a href="#t130">130</a></span><span class="t">    <span class="com"># is called</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t131" class="run"><span class="n"><a href="#t131">131</a></span><span class="t">    <span class="key">def</span> <span class="nam">test_add_error</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t132" class="run"><span class="n"><a href="#t132">132</a></span><span class="t">        <span class="nam">db</span><span class="op">.</span><span class="nam">clear</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t133" class="run"><span class="n"><a href="#t133">133</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">assertFalse</span><span class="op">(</span><span class="nam">db</span><span class="op">.</span><span class="nam">add_move</span><span class="op">(</span><span class="nam">self</span><span class="op">.</span><span class="nam">testEntry</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t134" class="pln"><span class="n"><a href="#t134">134</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t135" class="pln"><span class="n"><a href="#t135">135</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t136" class="run"><span class="n"><a href="#t136">136</a></span><span class="t"><span class="key">if</span> <span class="nam">__name__</span> <span class="op">==</span> <span class="str">'__main__'</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t137" class="mis show_mis"><span class="n"><a href="#t137">137</a></span><span class="t">    <span class="nam">unittest</span><span class="op">.</span><span class="nam">main</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t138" class="pln"><span class="n"><a href="#t138">138</a></span><span class="t">    <span class="com"># db.clear()</span>&nbsp;</span><span class="r"></span></p>
 </div>
 <div id="footer">
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.5</a>,
-            created at 2021-10-08 11:01 -0700
+            created at 2021-10-08 11:27 -0700
         </p>
     </div>
 </div>

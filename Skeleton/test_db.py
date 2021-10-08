@@ -126,6 +126,12 @@ class Test_Testdb(unittest.TestCase):
                 conn.close()
         self.assertEqual(len(result), 0)
 
+    # ensure an error is thrown if there is no table when addMove
+    # is called
+    def test_add_error(self):
+        db.clear()
+        self.assertFalse(db.add_move(self.testEntry))
+
 
 if __name__ == '__main__':
     unittest.main()

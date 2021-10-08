@@ -41,6 +41,7 @@ def add_move(move):  # will take in a tuple
         conn.execute(sql, data)
         conn.commit()
     except Error as e:
+        return False
         print(e)
 
     finally:

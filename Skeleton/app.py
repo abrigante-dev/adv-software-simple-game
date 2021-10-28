@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, jsonify
+from flask import Flask, render_template, request, jsonify
 # from json import dump
 # from flask.helpers import url_for
 
@@ -26,6 +26,8 @@ Initial Webpage where gameboard is initialized
 
 @app.route('/', methods=['GET'])
 def player1_connect():
+    db.clear()
+    db.init_db()
     global game
     game = Gameboard()
     return render_template('player1_connect.html', status='Pick a Color.')
@@ -55,6 +57,8 @@ Assign player1 their color
 
 @app.route('/p1Color', methods=['GET'])
 def player1_config():
+    global game
+    game = Gameboard()
     game.setP1(request.args.get('color'))
     return render_template('player1_connect.html', status=game.player1)
 
@@ -71,8 +75,11 @@ Assign player2 their color
 
 @app.route('/p2Join', methods=['GET'])
 def p2Join():
-    if game.getP1 != '':
+    # ensure p1 picks their color first
+    if len(str(game.player1)) > 0:
         return render_template('p2Join.html', status=game.player2)
+    else:
+        return render_template('p2Join.html', status="p1 hasnt chosen a color")
 
 
 '''
@@ -91,11 +98,7 @@ Process Player 1's move
 def p1_move():
     global game
     move = request.json
-    if game.game_result != '':
-        return jsonify(
-            move=game.board, invalid=False,
-            winner=game.game_result)
-    elif game.current_turn == 'p1':
+    if game.current_turn == 'p1':
         return game.makeMove(move['column'])
     else:
         return jsonify(
@@ -112,11 +115,7 @@ Same as '/move1' but instead proccess Player 2
 def p2_move():
     global game
     move = request.json
-    if game.game_result != '':
-        return jsonify(
-            move=game.board, invalid=False,
-            winner=game.game_result)
-    elif game.current_turn == 'p2':
+    if game.current_turn == 'p2':
         return game.makeMove(move['column'])
     else:
         return jsonify(
@@ -125,6 +124,7 @@ def p2_move():
 
 
 if __name__ == '__main__':
-    db.clear()
-    db.init_db()
+    # will initialize a DB if there currently isn't one or if the db is empty
+    if db.getMove() is None:
+        db.init_db()
     app.run(debug=True, host='127.0.0.1')
